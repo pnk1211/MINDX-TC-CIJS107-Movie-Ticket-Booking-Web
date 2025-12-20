@@ -6,24 +6,30 @@ import HomePage from './pages/HomePage';
 import FilterPage from './pages/FilterPage';
 import AboutPage from './pages/AboutPage';
 import FeedbackPage from './pages/FeedbackPage';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Booking from "./pages/Booking";
+import Trailer from "./pages/Trailer";
+import MovieDetail from "./pages/MovieDetail";
+
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({ 
-    name: 'PHAN NGU....', 
-    avatar: 'https://via.placeholder.com/40', 
-    email: 'phannguyenkhoa04@gmail.com' 
+  const [user, setUser] = useState({
+    name: 'PHAN NGU....',
+    avatar: 'https://via.placeholder.com/40',
+    email: 'phannguyenkhoa04@gmail.com'
   });
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <Router>
       <div className="App">
-        <Header 
-          isLoggedIn={isLoggedIn} 
-          user={user} 
-          onLogin={() => setIsLoggedIn(true)} 
+        <Header
+          isLoggedIn={isLoggedIn}
+          user={user}
+          onLogin={() => setIsLoggedIn(true)}
           setSearchQuery={setSearchQuery}
         />
         <Routes>
@@ -31,6 +37,12 @@ function App() {
           <Route path="/filter" element={<FilterPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/trailer" element={<Trailer />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
+
         </Routes>
         <Footer />
       </div>
