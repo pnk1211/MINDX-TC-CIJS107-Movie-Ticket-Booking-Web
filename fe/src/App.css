@@ -309,3 +309,51 @@ body {
 
 .footer-map { margin-top: 30px; text-align: center; }
 .map-container img { width: 100%; max-width: 900px; border-radius: 10px; border: 3px solid #333; }
+body {
+    padding-top: 105px; /* Giảm padding vì header đã gọn hơn */
+}
+
+.main-header {
+    background-color: var(--header-navy);
+    position: fixed;
+    top: 0; left: 0; width: 100%; z-index: 1000;
+}
+
+.header-top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 5%;
+}
+
+/* Thanh điều hướng mới tích hợp vào Header */
+.header-nav-tabs {
+    display: flex;
+    background-color: #181c31;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-tab {
+    flex: 1;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.nav-tab:hover {
+    color: var(--primary-gold);
+}
+
+.nav-tab.active {
+    color: var(--primary-gold);
+    border-bottom: 3px solid var(--primary-gold);
+}
+
+/* Xóa bỏ khoảng cách thừa của homepage */
+.homepage-wrapper-simple {
+    padding-top: 20px;
+}

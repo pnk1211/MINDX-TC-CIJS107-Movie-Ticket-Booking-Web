@@ -11,11 +11,12 @@ import './App.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({ 
-    name: 'PHAN NGU....', 
+    name: 'PHAN NGUYỄN', 
     avatar: 'https://via.placeholder.com/40', 
     email: 'phannguyenkhoa04@gmail.com' 
   });
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('now');
 
   return (
     <Router>
@@ -25,9 +26,11 @@ function App() {
           user={user} 
           onLogin={() => setIsLoggedIn(true)} 
           setSearchQuery={setSearchQuery}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
         />
         <Routes>
-          <Route path="/" element={<HomePage searchQuery={searchQuery} />} />
+          <Route path="/" element={<HomePage searchQuery={searchQuery} activeTab={activeTab} />} />
           <Route path="/filter" element={<FilterPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
