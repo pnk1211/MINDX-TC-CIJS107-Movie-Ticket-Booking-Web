@@ -26,7 +26,7 @@ export default function Booking() {
     setSelectedSeats([]);
   }, [movieId]);
 
-  const rows = ["A","B","C","D","E","F","G","H","I","J","K","L"];
+  const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
 
   const toggleSeat = (seat) => {
     setSelectedSeats((prev) =>
@@ -45,7 +45,7 @@ export default function Booking() {
       <h1 style={styles.title}>🎟️ Đặt vé</h1>
 
       <p style={{ opacity: 0.85, marginBottom: 20 }}>
-        🎬 Phim: <b>{movie.title}</b>
+        Phim: <b>{movie.title}</b>
       </p>
 
       <div style={styles.section}>
@@ -72,7 +72,7 @@ export default function Booking() {
       <div style={styles.section}>
         <h3>Chọn suất</h3>
         <div style={styles.row}>
-          {["09:00","11:30","14:00","16:30","18:30","21:00"].map((t) => (
+          {["09:00", "11:30", "14:00", "16:30", "18:30", "21:00"].map((t) => (
             <button
               key={t}
               onClick={() => setTime(t)}

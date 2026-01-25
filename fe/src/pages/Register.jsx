@@ -1,95 +1,83 @@
-export default function Register() {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function Register({ onRegisterSuccess }) {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleRegister = () => {
+    if (password !== confirm) {
+      alert("Mật khẩu không trùng!");
+      return;
+    }
+
+    // lấy list user cũ
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // check email tồn tại chưa
+    if (users.some(u => u.email === email)) {
+      alert("Email đã tồn tại, vui lòng đăng nhập!");
+      return;
+    }
+
+    const newUser = {
+      name: fullName || email,
+      email,
+      phone,
+      gender,
+      birthday,
+      password,       // tạm thời lưu plain text vì chưa có BE
+      avatar: "/user.png",
+    };
+
+    // lưu vào localStorage (database fake)
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // nếu muốn báo cho App biết vừa đăng ký xong: truyền null để App không login
+    if (onRegisterSuccess) onRegisterSuccess(null);
+
+    alert("Đăng ký thành công! Mời bạn đăng nhập.");
+    navigate("/login");
+  };
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        background: "rgba(0,0,0,0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          width: 420,
-          background: "#0b1020",
-          padding: 24,
-          borderRadius: 12,
-          color: "white",
-        }}
-      >
+    <div style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.7)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ width: 450, background: "#0b1020", padding: 24, borderRadius: 12, color: "white" }}>
         <h2 style={{ textAlign: "center", marginBottom: 20 }}>Đăng Ký Tài Khoản</h2>
 
-        <input
-          placeholder="Họ và tên"
-          style={inputStyle}
-        />
-
-        <input
-          placeholder="Email"
-          style={inputStyle}
-        />
-
-        <input
-          placeholder="Số điện thoại"
-          style={inputStyle}
-        />
+        <input placeholder="Họ và tên" value={fullName} onChange={e => setFullName(e.target.value)} style={inputStyle} />
+        <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} />
+        <input placeholder="Số điện thoại" value={phone} onChange={e => setPhone(e.target.value)} style={inputStyle} />
 
         <div style={{ display: "flex", gap: 20, marginBottom: 12 }}>
-          <label>
-            <input type="radio" name="gender" /> Nam
-          </label>
-          <label>
-            <input type="radio" name="gender" /> Nữ
-          </label>
+          <label><input type="radio" name="gender" value="Nam" onChange={e => setGender(e.target.value)} /> Nam</label>
+          <label><input type="radio" name="gender" value="Nữ" onChange={e => setGender(e.target.value)} /> Nữ</label>
         </div>
 
-        <input
-          type="date"
-          style={inputStyle}
-        />
+        <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} style={inputStyle} />
+        <input type="password" placeholder="Mật khẩu" value={password} onChange={e => setPassword(e.target.value)} style={inputStyle} />
+        <input type="password" placeholder="Nhập lại mật khẩu" value={confirm} onChange={e => setConfirm(e.target.value)} style={inputStyle} />
 
-        <input
-          type="password"
-          placeholder="Mật khẩu"
-          style={inputStyle}
-        />
-
-        <input
-          type="password"
-          placeholder="Nhập lại mật khẩu"
-          style={inputStyle}
-        />
-
-        <button
-          style={{
-            width: "100%",
-            padding: 12,
-            background: "#f7b400",
-            color: "black",
-            fontWeight: "bold",
-            borderRadius: 8,
-            border: "none",
-            cursor: "pointer",
-            marginTop: 10,
-          }}
-        >
-          HOÀN TẤT
-        </button>
+        <button onClick={handleRegister} style={btnStyle}>HOÀN TẤT</button>
       </div>
     </div>
   );
 }
 
 const inputStyle = {
-  width: "100%",
-  padding: 12,
-  marginBottom: 12,
-  borderRadius: 8,
-  border: "1px solid #555",
-  background: "#1a1c2e",
-  color: "white",
+  width: "100%", padding: 12, marginBottom: 12, borderRadius: 8,
+  border: "1px solid #555", background: "#1a1c2e", color: "white"
 };
 
+const btnStyle = {
+  width: "100%", padding: 12, background: "#f7b400", color: "black",
+  fontWeight: "bold", borderRadius: 8, border: "none", cursor: "pointer"
+};
